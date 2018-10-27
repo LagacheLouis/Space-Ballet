@@ -1,0 +1,73 @@
+body{
+    margin:0;
+    overflow:hidden;
+}
+
+#inputs--wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    z-index: 100;
+}
+
+#inputs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    transform: translateY(50px);
+    padding-bottom: 10px;
+}
+
+#inputs *{
+    transition: 0.5s;
+    opacity:0;
+}
+
+#inputs::before{
+    content: "⧨";
+    position: absolute;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 50px;
+    width: 50px;
+    opacity: 1;
+    top:-5px;
+    border: solid 1px white;
+    border-bottom: none;
+    font-size: 2em;
+}
+
+#inputs:hover *{
+    opacity:1;
+}
+#inputs:hover::before{
+    opacity: 0;
+}
+
+#inputs:hover{
+    transform: translateY(0px)
+}
+
+
+#thefile {
+    color:white;
+}
+
+#canvas {
+    background: radial-gradient( #0a0514 50%,black);
+    background-size:100vw 100vw;
+    background-position: 50%;
+}
+
+audio {
+    margin-top: 10px;
+    width: 100%;
+    transform: scale(0.8);
+}
