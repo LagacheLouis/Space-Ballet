@@ -127,7 +127,7 @@ window.onload = function () {
 
         document.querySelector('#play').onclick = function(){
             if(needPlay){
-                TweenMax.to("#play",0.1,{opacity: 0});
+                TweenMax.to("#play",0.1,{opacity: 0, pointerEvents: "none"});
                 TweenMax.fromTo(controls,2,{zoom: 0.0001, yaxis: 1},{zoom: 1920/window.innerWidth * 0.9, yaxis: 0.3, delay: 1,onUpdate : setSizes, onComplete:function(){
                     context.resume();
                     audio.load();
@@ -142,7 +142,7 @@ window.onload = function () {
             audio.src = files ? URL.createObjectURL(files[0]) : "Caravan Palace - Midnight.mp3";
             document.querySelector("#inputs--wrapper").classList.remove('active');
             needPlay = true;
-            TweenMax.to("#play",0.1,{opacity: 1});
+            TweenMax.to("#play",0.1,{opacity: 1, pointerEvents:"all"});
         };
 
         
