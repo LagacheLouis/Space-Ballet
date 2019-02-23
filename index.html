@@ -5,13 +5,18 @@
   <title>Music</title>
   <link rel="stylesheet" href="style.css">
   <script src="simplex.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.1/TweenMax.min.js"></script>
   <script src="main.js"></script>
 </head>
 <body>
     <div id="content">
+        <div id = "play">▷</div>
         <div id ="inputs--wrapper">
           <div id = "inputs">
-            <input type="file" id="thefile" accept="audio/*" />
+            <span id="icon">♬</span>
+            <div>
+              <input type="file" id="thefile" accept="audio/*" />
+            </div>
             <audio id="audio" controls></audio>
           </div>
         </div>
