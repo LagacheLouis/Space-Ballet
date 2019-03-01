@@ -131,7 +131,7 @@ window.onload = function () {
         document.querySelector('#play').onclick = function(){
             if(needPlay){
                 TweenMax.to("#play",0.1,{opacity: 0, pointerEvents: "none"});
-                TweenMax.fromTo(controls,2,{zoom: 0.0001, yaxis: 1},{zoom: 1920/window.innerWidth * 0.9, yaxis: 0.3, delay: 1,onUpdate : setSizes, onComplete:function(){
+                TweenMax.fromTo(controls,2,{zoom: 0.0001, yaxis: 1},{zoom: window.innerWidth/1920 , yaxis: 0.3, delay: 1,onUpdate : setSizes, onComplete:function(){
                     context.resume();
                     audio.load();
                     audio.play();
