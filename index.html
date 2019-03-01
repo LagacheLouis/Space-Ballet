@@ -2,25 +2,26 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Music</title>
+  <title>Canvas 2D - Music XP</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="simplex.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.1/TweenMax.min.js"></script>
   <script src="main.js"></script>
 </head>
 <body>
-    <div id="content">
-        <div id = "play">▷</div>
-        <div id ="inputs--wrapper">
-          <div id = "inputs">
-            <span id="icon">♬</span>
-            <div>
-              <input type="file" id="thefile" accept="audio/*" />
-            </div>
-            <audio id="audio" controls></audio>
-          </div>
-        </div>
-        <canvas id="canvas"></canvas>       
-      </div>
+
+<div id = "play">▷</div>
+<div id ="inputs--wrapper">
+  <div id = "inputs">
+    <span id="icon">♬</span>
+    <div>
+      <input type="file" id="thefile" accept="audio/*" />
+    </div>
+    <audio id="audio" controls></audio>
+  </div>
+</div>
+<h2 id="music-name">Now playing : kldfkvlfkldkldf</h2>
+<canvas id="canvas"></canvas>       
 </body>
 </html>

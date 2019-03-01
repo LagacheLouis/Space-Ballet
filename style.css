@@ -60,6 +60,15 @@ body{
     cursor: pointer;
 }
 
+#music-name{
+    color:white;
+    position: absolute;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 16px;
+    left: 15px;
+    opacity: 0.5;
+}
+
 
 #thefile {
     margin-top: 10px;

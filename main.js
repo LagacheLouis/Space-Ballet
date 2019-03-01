@@ -37,7 +37,7 @@ window.onload = function () {
     var LIGHTRANGE = c_LIGHTRANGE;
 
     var controls = {
-        zoom: 1920/window.innerWidth * 0.9, yaxis: 0.3
+        zoom: window.innerWidth/1920, yaxis: 0.3
     }
     setSizes();
 
@@ -104,8 +104,11 @@ window.onload = function () {
         document.querySelector("#inputs--wrapper").classList.toggle('active');
     }
 
-    audio.src = "Caravan Palace - Midnight.mp3";
+    audio.src = "Noisestorm - Breakout.mp3";
     let needPlay = true;
+
+    let musicName = document.getElementById("music-name");
+    musicName.innerText = "Now Playing : " + "Noisestorm - Breakout";
 
     draw();
     function draw() {
@@ -139,10 +142,11 @@ window.onload = function () {
         
         file.onchange = function(){
             let files = this.files;
-            audio.src = files ? URL.createObjectURL(files[0]) : "Caravan Palace - Midnight.mp3";
+            audio.src = files ? URL.createObjectURL(files[0]) : "Noisestorm - Breakout.mp3";
             document.querySelector("#inputs--wrapper").classList.remove('active');
             needPlay = true;
             TweenMax.to("#play",0.1,{opacity: 1, pointerEvents:"all"});
+            musicName.innerText = "Now Playing : " + files[0].name;
         };
 
         
@@ -471,6 +475,7 @@ window.onload = function () {
                     sun.update();
                 }
             });
+
             requestAnimationFrame(update);
         }
 
