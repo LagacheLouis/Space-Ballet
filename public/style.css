@@ -1,0 +1,165 @@
+/* cyrillic-ext */
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sourcecodepro/v21/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQtMRrTEUc.woff2) format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+/* cyrillic */
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sourcecodepro/v21/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQtM1rTEUc.woff2) format('woff2');
+    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+/* greek-ext */
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sourcecodepro/v21/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQtMVrTEUc.woff2) format('woff2');
+    unicode-range: U+1F00-1FFF;
+}
+
+/* greek */
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sourcecodepro/v21/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQtMprTEUc.woff2) format('woff2');
+    unicode-range: U+0370-03FF;
+}
+
+/* vietnamese */
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sourcecodepro/v21/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQtMZrTEUc.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sourcecodepro/v21/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQtMdrTEUc.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sourcecodepro/v21/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQtMlrTA.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#play {
+    position: absolute;
+    color: white;
+    font-size: 5vw;
+    top: 50%;
+    left: 50.5%;
+    line-height: 0;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+#inputs--wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    transform: translate(0, 93px);
+    transition: .3s;
+}
+
+#inputs--wrapper.active {
+    transform: translate(0, 0)
+}
+
+#inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 63vw;
+    padding-bottom: 10px;
+    border: solid 1px white;
+    border-radius: 20px 20px 0px 0px;
+    border-bottom: none;
+}
+
+#icon {
+    z-index: 1000000;
+    position: absolute;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 50px;
+    width: 50px;
+    opacity: 1;
+    top: -5px;
+    border: solid 1px white;
+    border-bottom: solid 1px black;
+    border-radius: 1px 1px 0px 0px;
+    font-size: 2em;
+    transform: translate(0, -46px);
+    cursor: pointer;
+}
+
+#music-name {
+    color: white;
+    position: absolute;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 16px;
+    left: 15px;
+    opacity: 0.5;
+}
+
+
+#thefile, #stream, #demo {
+    margin-top: 10px;
+    color: white;
+    transform: scale(0.8)
+}
+#stream, #demo{
+    color: black;
+}
+
+#default-file {
+    transform: scale(0.8);
+}
+
+#canvas {
+    background: radial-gradient(#0a0514 50%, black);
+    background-size: 100vw 100vw;
+    background-position: 50%;
+    cursor: grab;
+}
+
+#canvas:active {
+    cursor: grabbing;
+}
+
+audio {
+    margin-top: -5px;
+    width: 100vw;
+    transform: scale(0.6)
+}

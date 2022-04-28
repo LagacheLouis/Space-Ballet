@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Canvas 2D - Music XP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id = "play">▷</div>
+  <div id ="inputs--wrapper">
+    <div id = "inputs">
+      <span id="icon">♬</span>
+      <div>
+        <button id ="demo">demo</button>
+        <input type="file" id="thefile" accept="audio/*" />
+        <button id ="stream">stream</button>
+      </div>
+      <audio id="audio" controls></audio>
+    </div>
+  </div>
+  <h2 id="music-name">Now playing : none</h2>
+  <canvas id="canvas"></canvas>    
+  <script src="assets/js/bundle.js"></script>   
+</body>
+</html>
