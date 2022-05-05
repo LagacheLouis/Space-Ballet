@@ -1,0 +1,36 @@
+/* Fonts */
+@import "fonts/font";
+
+/* Dependencies */
+@import "dependancies/normalize";
+@import "dependancies/mediaqueries";
+@import "dependancies/mixin";
+@import "dependancies/ceaser";
+
+$light: 300;
+$normal: 400;
+$medium: 500;
+$semibold: 600;
+$bold: 700;
+$extrabold: 800;
+$heavy: 900;
+
+$typoMain: 'Source Code Pro', monospace;
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#canvas {
+    background: radial-gradient(#0a0514 50%, black);
+    background-size: 100vw 100vw;
+    background-position: 50%;
+    cursor: grab;
+    &:active{
+        cursor: grabbing;
+    }
+}
+
+@import "part/song-selector";
+@import "part/player";

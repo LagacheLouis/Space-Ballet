@@ -29,8 +29,8 @@ export default class Star {
         }
 
 
-        let dirX = this.simplex.noise2D(0, this.noiseX / 5) * 250 * nob;
-        let dirY = this.simplex.noise2D(0, this.noiseY / 5) * 250 * nob;
+        let dirX = this.simplex.noise2D(0, this.noiseX / 5) * 250 * nob * nob;
+        let dirY = this.simplex.noise2D(0, this.noiseY / 5) * 250 * nob * nob;
 
         this.noiseX += clock.delta;
         this.noiseY += clock.delta;
@@ -43,10 +43,10 @@ export default class Star {
         while(this.globalY < 0)
             this.globalY += HEIGHT;
 
-        this.draw();
+        this.draw(nob);
     }
 
-    draw() {
+    draw(nob) {
         const {ctx} = global.app;
         ctx.save();
         ctx.translate(this.posX, this.globalY);

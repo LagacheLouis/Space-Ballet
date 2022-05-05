@@ -1,0 +1,14 @@
+
+#music-name {
+    color: white;
+    position: absolute;
+    font-size: 16px;
+    line-height: 1;
+    top: 10px;
+    left: 15px;
+    font-family: $typoMain;
+    span{
+        display: inline-block;
+        white-space: pre;
+    }
+}

@@ -6,6 +6,7 @@ export default class Planet {
         this.sizeGround = PLANET_SIZE;
         this.sizeAtmosphere = PLANET_SIZE;
 
+        this.startAngle = angle;
         this.angle = angle;
         this.orbit = ORBIT_SIZE;
         this.color = color;
@@ -16,9 +17,8 @@ export default class Planet {
         const { PLANET_SIZE, ORBIT_SIZE, ORBIT_BOUNCE, PLANET_BOUNCE, PLANET_MINSIZE, HEIGHT, WIDTH } = scaledSizes();
         const {clock, controls } = global.app;
 
-        this.angle += 10 * Math.PI / 180 * clock.delta;
-        if (this.angle > Math.PI * 2)
-            this.angle = 0;
+        this.angle = this.startAngle + 10 * Math.PI / 180 * clock.time;
+        this.angle = this.angle % (Math.PI * 2);
 
         this.orbit += (ORBIT_SIZE + ORBIT_BOUNCE * nob - this.orbit) * 0.6;
 

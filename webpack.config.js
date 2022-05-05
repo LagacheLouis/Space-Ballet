@@ -1,12 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const APP_DIR = path.resolve(__dirname, 'src');
 const BUILD_DIR = path.resolve(__dirname, 'public');
 const NODE_ENV = process.env.NODE_ENV;
 
 const config = {
-  entry: `${APP_DIR}/index.js`,
+  entry: [`${APP_DIR}/js/index.js`, `${APP_DIR}/scss/styles.scss`],
   output: {
     path: BUILD_DIR,
     filename: 'assets/js/bundle.js',
@@ -15,7 +16,6 @@ const config = {
     extensions: ['.js', '.json'],
     modules: [APP_DIR, 'node_modules'],
     alias: {
-      // https://github.com/webpack/webpack/issues/4666
       constants: `${APP_DIR}/constants`,
     },
   },
@@ -27,11 +27,21 @@ const config = {
         exclude: /node_modules/,
         use: ['babel-loader'],
         include: APP_DIR,
-      }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+            MiniCssExtractPlugin.loader,
+            "css-loader",
+            "sass-loader",
+        ],
+    },
     ],
   },
   plugins: [
-    
+    new MiniCssExtractPlugin({
+      filename: "styles.css"
+    })
   ],
   devServer: {
     contentBase: BUILD_DIR,

@@ -1,0 +1,60 @@
+@use "sass:math";
+
+@mixin font-size($sizeValue: 16) {
+  font-size: $sizeValue + px;
+  font-size: math.div($sizeValue, 16) + rem;
+}
+
+@mixin fs($sizeValue: 16) {
+  @include font-size($sizeValue);
+}
+
+
+/*
+super absolute
+*/
+@mixin abs0 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+/*
+absolute center
+*/
+@mixin abscenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*
+flex center
+*/
+@mixin flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin triangle($size, $color, $direction) {
+  height: 0;
+  width: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: math.div($size, 2);
+
+  @if $direction == up {
+    border-bottom-color: $color;
+  } @else if $direction == right {
+    border-left-color: $color;
+  } @else if $direction == down {
+    border-top-color: $color;
+  } @else if $direction == left {
+    border-right-color: $color;
+  }
+}

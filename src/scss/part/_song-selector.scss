@@ -1,0 +1,61 @@
+.song-selector{
+    position: fixed;
+    @include flexcenter;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    transition: .7s $easeOutP4;
+    transform: translateY(100%);
+    &.active{
+        transform: translateY(-100%);
+    }
+    >div{
+        display: flex;
+        align-items: center;
+    } 
+    audio, input {
+       display: none;
+    }   
+}
+
+.btn {
+    @include flexcenter;
+    background-color: transparent;
+    color: white;
+    border: solid 1px white;
+    border-radius: 5px;
+    padding: 0;
+    height: 50px;
+    width: 200px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: $typoMain;
+    transition: .3s $easeOutP4;
+    margin: 0 5px;
+    overflow: hidden;
+    position: relative;
+    &::before{
+        content: "";
+        @include abs0;
+        background-color: white;
+        z-index: -1;
+        transform: translateY(100%);
+        transition: .3s $easeOutP4;
+    }
+    &:hover{
+        color: black;
+        &::before{
+            transform: translateY(0); 
+        }
+    }
+}
+
+#song-selector-toggle {
+    z-index: 1000000;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: -10px;
+    font-size: 2em;
+    transform: translateY(-100%);
+}

@@ -3,22 +3,21 @@
 <head>
   <meta charset="utf-8">
   <title>Canvas 2D - Music XP</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id = "play">▷</div>
-  <div id ="inputs--wrapper">
-    <div id = "inputs">
-      <span id="icon">♬</span>
+  <div id ="song-selector" class="song-selector" class="active">
+      <span id="song-selector-toggle" class="btn">♬</span>
       <div>
-        <button id ="demo">demo</button>
-        <input type="file" id="thefile" accept="audio/*" />
-        <button id ="stream">stream</button>
+        <button id ="demo" class="btn">Play demo song</button>
+        <button id ="file" class="btn">Load song</button>
+        <button id ="micro" class="btn">Microphone</button>
+        <button id ="stream" class="btn">Stream system</button>
       </div>
+      <input type="file" id="input" accept="audio/*" />
       <audio id="audio" controls></audio>
-    </div>
   </div>
-  <h2 id="music-name">Now playing : none</h2>
+  <h2 id="music-name"></h2>
   <canvas id="canvas"></canvas>    
   <script src="assets/js/bundle.js"></script>   
 </body>

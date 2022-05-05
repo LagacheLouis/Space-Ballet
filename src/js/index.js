@@ -1,9 +1,9 @@
-const { default: App } = require("./app");
+const { default: App } = require("./core/app");
 const { PLANET_COLORS } = require("./constants");
-const { default: Constellation } = require("./modules/constellation");
-const { default: Planet, sortPlanets } = require("./modules/planet");
-const { default: Star } = require("./modules/star");
-const { default: Sun } = require("./modules/sun");
+const { default: Constellation } = require("./entities/constellation");
+const { default: Planet, sortPlanets } = require("./entities/planet");
+const { default: Star } = require("./entities/star");
+const { default: Sun } = require("./entities/sun");
 const { default: SimplexNoise } = require("./utils/simplexNoise");
 
 
@@ -31,8 +31,8 @@ window.onload = () => {
 
     app.update = () =>{
         const avg = app.analyser.getAverage({min: 0, max: 50});
-        const kick = Math.pow(app.analyser.getMax({min: 50, max: 100}), 2);
-        const beat = app.analyser.beats[2].on();
+        const kick = app.analyser.getQuartile({min: 25, max: 100},0.75) + app.analyser.getQuartile({min: 25, max: 100},0.25);
+        const beat = app.analyser.onBeats();
 
         stars.forEach(s => s.update(kick));
 

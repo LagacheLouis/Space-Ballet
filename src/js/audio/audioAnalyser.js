@@ -145,14 +145,22 @@ export default class AudioAnalyser {
         var base = Math.floor(pos);
         var rest = pos - base;
         if (array[base + 1] !== undefined) {
-            return array[base] + rest * (array[base + 1] - array[base]);
+            return (array[base] + rest * (array[base + 1] - array[base])) /255;
         } else {
-            return array[base];
+            return array[base] / 255;
         }
     }
 
     getData() {
         return this.data;
+    }
+
+    onBeats(array){
+        for(let i = 0; i<this.beats.length; i++){
+            if(array && !array.includes(i)) return;
+            if(this.beats[i].on()) return true;
+        }
+        return false;
     }
 }
 
