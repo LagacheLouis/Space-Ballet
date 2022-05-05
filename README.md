@@ -8,8 +8,6 @@ npm install
 npm run start
 ```
 
-## Authors
+## Author
 
-**Developer :** Lagache Louis ([@llagache_dev](https://twitter.com/llagache_dev))
-
-**Designer :** Amandine Donat-Filliod
+Lagache Louis ([@llagache_dev](https://twitter.com/llagache_dev))
