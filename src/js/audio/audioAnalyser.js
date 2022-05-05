@@ -1,8 +1,7 @@
 export default class AudioAnalyser {
-    constructor({ audioElement, stream, fftSize, beatsCount }) {
+    constructor({ fftSize, beatsCount }) {
         this.context = new AudioContext();
         this.analyser = this.context.createAnalyser();
-        this.updateMedia({audioElement, stream});
 
         this.analyser.fftSize = fftSize;
         this.bufferLength = this.analyser.frequencyBinCount;
@@ -43,21 +42,20 @@ export default class AudioAnalyser {
         };
     }
 
-    updateMedia({audioElement, stream}){
-        if(stream){
-            this.stream = this.context.createMediaStreamSource(stream);
-            this.stream.connect(this.analyser);
-            if(this.isConnected) this.analyser.disconnect(this.context.destination);
-            this.isConnected = false;
-            this.context.resume();
-        }else{
-            if(!this.src){
-                this.src =  this.context.createMediaElementSource(audioElement);
-            }
-            this.src.connect(this.analyser);
-            this.analyser.connect(this.context.destination);
-            this.isConnected = true;
-        }
+    setAudioElement(audioElement) {
+        this.src = this.context.createMediaElementSource(audioElement);
+        this.src.connect(this.analyser);
+        this.analyser.connect(this.context.destination);
+        this.isConnected = true;
+    }
+
+    setStream(stream) {
+        this.stream = this.context.createMediaStreamSource(stream);
+        this.stream.connect(this.analyser);
+        if (this.isConnected)
+            this.analyser.disconnect(this.context.destination);
+        this.isConnected = false;
+        this.context.resume();
     }
 
     refreshData(time) {

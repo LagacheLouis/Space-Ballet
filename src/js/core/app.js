@@ -1,16 +1,13 @@
-import AudioPlayer from "../audio/audioPlayer";
 import Controls from "./controls";
-const { default: Clock } = require("../utils/clock");
+import Clock from "../utils/Clock";
 
 
 export default class App{
-    constructor(){
-        const canvas = document.getElementById("canvas");
+    constructor({canvas, audioplayer, analyser}){
         this.ctx = canvas.getContext("2d");
         this.clock = new Clock();
-        this.audioplayer = new AudioPlayer();
-        this.analyser = this.audioplayer.analyser;
- 
+        this.audioplayer = audioplayer;
+        this.analyser = analyser;
 
         this.controls = new Controls();
 
@@ -38,5 +35,10 @@ export default class App{
         requestAnimationFrame(()=> this.loop())
     }
 
-    
+    onAudioChange(){
+        this.revealAnimation();
+        this.setAudioName();
+    }
+
+   
 }

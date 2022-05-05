@@ -1,4 +1,4 @@
-const { clamp } = require("../utils/helpers");
+import { clamp } from "../utils/helpers";
 export default class Controls{
 
     constructor(){

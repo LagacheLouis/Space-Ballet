@@ -1,81 +1,105 @@
-import { DEFAULT_FILE } from "../constants";
-const { default: AudioAnalyser } = require("./audioAnalyser");
-const { default: gsap } = require("gsap");
-
 export default class AudioPlayer{
-    constructor(){
+    constructor({analyser, demoBtn, fileBtn, streamBtn, microBtn, demofile}){
         this.audioElement = document.getElementById("audio");
-        this.analyser = new AudioAnalyser({audioElement: this.audioElement, fftSize: 2048, beatsCount: 10});
-
-        document.getElementById("song-selector-toggle").onclick = () => this.togglePanel();
-        this.defaultEvents();
-        this.fileEvents();
-        this.streamEvents();
+        this.analyser = analyser;
+        this.stream = false;
+        this.onFileChangeCallbacks = [];
+        this.audioName = "";
+        this.demofile = demofile;
+        this._demoButton(demoBtn);
+        this._fileButton(fileBtn);
+        this._streamButton(streamBtn);
+        this._microButton(microBtn);
     }
 
-    defaultEvents(){
-        document.getElementById("demo").onclick = () => {
-            this.setAudioSource(DEFAULT_FILE, DEFAULT_FILE);
+    _demoButton(query){
+        const el = this._getOrCreateElement(query, 'button');
+        if(!el) return;
+        el.onclick = () => {
+            this.setAudioElement(this.demofile);
+            this.audioName = this.demofile;
+            this._callAudioChange();
         }
     }
 
-    fileEvents(){
+    _fileButton(query){
+        const el = this._getOrCreateElement(query, 'button');
+        if(!el) return;
         const input = document.getElementById("input");
-        document.getElementById("file").onclick = () => input.click();
+        el.onclick = () => input.click();
         input.onchange = (e) => {
             const files = e.target.files;
-            this.setAudioSource(files ? URL.createObjectURL(files[0]) : DEFAULT_FILE, files[0].name);
-            this.analyser.updateMedia({audioElement: this.audioElement});
+            if(!files) return;
+            this.setAudioElement(URL.createObjectURL(files[0]));
+            this.audioName = files[0].name;
+            this._callAudioChange();
         };
     }
 
-    streamEvents(){
-        document.getElementById("stream").onclick = () => {
+    _streamButton(query){
+        const el = this._getOrCreateElement(query, 'button');
+        if(!el) return;
+        el.onclick = () => {
             navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
             .then((stream) => {
-                this.audioElement.pause();
-                this.analyser.updateMedia({stream});
-                this.animate();
-                this.createName("Streaming system audio");
+                this.setStream(stream);
+                this.audioName = "System Audio";
+                this._callAudioChange();
             });
         };
     }
 
-    togglePanel(){
-        document.getElementById("song-selector").classList.toggle('active');
+    _microButton(query){
+        const el = this._getOrCreateElement(query, 'button');
+        if(!el) return;
+        el.onclick = () => {
+            navigator.mediaDevices.getUserMedia({audio: true })
+            .then((stream) => {
+                this.setStream(stream);
+                this.audioName = "Microphone";
+                this._callAudioChange();
+            });
+        };
     }
 
-    setAudioSource(file, name){
+    _closeStream(){
+        if(!this.stream) return;
+        this.stream.getTracks().forEach(function(track) {
+            track.stop();
+        });
+        this.stream = false;
+    }
+
+    _getOrCreateElement(query, type){
+        if(typeof(query) == "string")
+            return document.querySelector(query);
+        if(typeof(query) == "object")
+            return query;
+        return false;
+    }
+
+    _callAudioChange(){
+        this.onFileChangeCallbacks.forEach(fn => fn());
+    }
+
+    setAudioElement(file){
+        this._closeStream();
         this.audioElement.src = file;
-        this.analyser.context.resume();
-        this.togglePanel();
-        this.animate();
-        this.createName(name);
         this.audioElement.load();
         this.audioElement.play();
+        this.analyser.setAudioElement(this.audioElement);
+        this.analyser.context.resume();
     }
 
-    animate(){
-        gsap.fromTo(global.app.controls,{zoom: 0.0001, yaxis: 1},{duration: 2, zoom: window.innerWidth/1920 , yaxis: 0.3, delay: 1, onComplete: ()=> {
-            this.analyser.context.resume();
-        }});
+    setStream(stream){
+        this._closeStream();
+        this.stream = stream;
+        this.audioElement.pause();
+        this.analyser.setStream({stream});
+        this.analyser.context.resume();
     }
 
-    createName(name){
-        const nameElement = document.getElementById("music-name");
-        nameElement.innerHTML = "";
-        const text = `Now Playing : ${name} `;
-        for (var i = 0; i < text.length; i++) {
-            nameElement.innerHTML += `<span>${text.charAt(i)}</span>`;
-        }
-        setTimeout(()=>{
-            const tl = gsap.timeline();
-            const duration = .5;
-            const stagger = duration * 0.2;
-            tl.fromTo("#music-name span", { y: 0, opacity: 0.5}, {duration, y: -3, opacity: .7, stagger}, 0)
-            tl.to("#music-name span", {duration, y: 0, opacity: 0.5, stagger}, duration)
-            tl.repeat(-1);
-        },100)
-     
+    onAudioChange(fn){
+        this.onFileChangeCallbacks.push(fn);
     }
 }
