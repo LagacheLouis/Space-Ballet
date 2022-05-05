@@ -42,13 +42,6 @@ export default class AudioAnalyser {
         };
     }
 
-    setAudioElement(audioElement) {
-        this.src = this.context.createMediaElementSource(audioElement);
-        this.src.connect(this.analyser);
-        this.analyser.connect(this.context.destination);
-        this.isConnected = true;
-    }
-
     setStream(stream) {
         this.stream = this.context.createMediaStreamSource(stream);
         this.stream.connect(this.analyser);

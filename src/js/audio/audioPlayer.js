@@ -42,6 +42,7 @@ export default class AudioPlayer{
         el.onclick = () => {
             navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
             .then((stream) => {
+                this.audioElement.pause();
                 this.setStream(stream);
                 this.audioName = "System Audio";
                 this._callAudioChange();
@@ -55,6 +56,7 @@ export default class AudioPlayer{
         el.onclick = () => {
             navigator.mediaDevices.getUserMedia({audio: true })
             .then((stream) => {
+                this.audioElement.pause();
                 this.setStream(stream);
                 this.audioName = "Microphone";
                 this._callAudioChange();
@@ -86,16 +88,17 @@ export default class AudioPlayer{
         this._closeStream();
         this.audioElement.src = file;
         this.audioElement.load();
-        this.audioElement.play();
-        this.analyser.setAudioElement(this.audioElement);
-        this.analyser.context.resume();
+        this.audioElement.oncanplaythrough = () =>{
+            const stream = this.audioElement.captureStream(60);
+            this.setStream(stream);
+            this.audioElement.play();
+        }
     }
 
     setStream(stream){
         this._closeStream();
         this.stream = stream;
-        this.audioElement.pause();
-        this.analyser.setStream({stream});
+        this.analyser.setStream(stream);
         this.analyser.context.resume();
     }
 
