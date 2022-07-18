@@ -2,13 +2,18 @@ import { scaledSizes } from "../constants";
 
 export default class Star {
     constructor(simplex) {
+        this.init();
+        this.simplex = simplex;
+        window.addEventListener("resize", () => this.init() )
+    }
+
+    init(){
         const {WIDTH, HEIGHT} = scaledSizes();
         this.posX = Math.random() * WIDTH;
         this.posY = Math.random() * HEIGHT;
         this.noiseX = Math.random() * 100;
         this.noiseY = Math.random() * 100;
         this.brightness = Math.random();
-        this.simplex = simplex;
     }
 
     update(nob) {

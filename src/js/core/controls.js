@@ -4,6 +4,9 @@ export default class Controls{
     constructor(){
         this.zoom = window.innerWidth/1920;
         this.yaxis = 0.3;
+        this.startY = 0;
+        this.drag_start = {x:-1,y:-1};
+        this.drag =  {x:0,y:0};
         this.scrollEvents();
         this.dragEvents();
     }
@@ -20,30 +23,40 @@ export default class Controls{
     }
 
     dragEvents(){
-        let startY;
-        let drag_start = {x:-1,y:-1};
-        window.onmousedown = (e) => {
-            drag_start.x = e.clientX;
-            drag_start.y = e.clientY;
-            startY = this.yaxis;
-        }
+        window.onmousedown = e => this.onDragStart(e);
+        window.onmousemove = e => this.onDrag(e);
+        window.onmouseup = e => this.onDragEnd(e);
 
-        let drag = {x:0,y:0};
-        window.onmousemove = (e) => {
-            if(drag_start.x != -1 && drag_start.y != -1){
-                drag.x = drag_start.x - e.clientX;
-                drag.y = drag_start.y - e.clientY;
-                this.yaxis = startY + drag.y / window.innerHeight * 3;
-                if(this.yaxis < -1)
-                    this.yaxis = -1;
-                else if(this.yaxis > 1)
-                    this.yaxis = 1;
-            }    
-        }
+        window.ontouchstart = e => this.onDragStart(e.touches[0]);
+        window.ontouchmove = e => this.onDrag(e.touches[0]);
+        window.ontouchend = e => this.onDragEnd(e.touches[0]);
+    }
 
-        window.onmouseup = (e) =>{
-            drag = {x:0,y:0};
-            drag_start = {x:-1,y:-1};
-        }
+    onDragStart(e){
+        console.log("test");
+        this.drag_start.x = e.clientX;
+        this.drag_start.y = e.clientY;
+        this.startY = this.yaxis;
+    }
+
+    onDrag(e){
+        if(this.drag_start.x != -1 && this.drag_start.y != -1){
+            this.drag.x = this.drag_start.x - e.clientX;
+            this.drag.y = this.drag_start.y - e.clientY;
+            this.yaxis = this.startY + this.drag.y / window.innerHeight * 3;
+            if(this.yaxis < -1)
+                this.yaxis = -1;
+            else if(this.yaxis > 1)
+                this.yaxis = 1;
+        }   
+    }
+
+    onDragEnd(e){
+        this.drag = {x:0,y:0};
+        this.drag_start = {x:-1,y:-1};
     }
 }
+
+function isTouchDevice() {
+    return window.matchMedia("(pointer: coarse)").matches
+  }

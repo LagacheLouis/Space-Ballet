@@ -10,7 +10,7 @@ const config = {
   entry: [`${APP_DIR}/js/index.js`, `${APP_DIR}/scss/styles.scss`],
   output: {
     path: BUILD_DIR,
-    filename: 'assets/js/bundle.js',
+    filename: 'assets/bundle.js',
   },
   resolve: {
     extensions: ['.js', '.json'],
@@ -40,7 +40,7 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "styles.css"
+      filename: "assets/styles.css"
     })
   ],
   devServer: {
